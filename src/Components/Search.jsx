@@ -1,48 +1,104 @@
 import React, { useState, useEffect } from "react";
+import Countries from "./Countries"
 
-function Search({darkMode, toggleDarkMode}) {
+function Search({ darkMode }) {
+  const [selectedRegion, setSelectedRegion] = useState("");
+  const [regions, setRegions] = useState([]);
 
-  const [selectedCountry, setSelectedCountry]=useState("");
+
+  const [inputValue, setInputValue]=useState("");
   const [countries,setCountries]=useState([]);
-  
 
-  useEffect(() =>{
+  const [filteredCountries, setFilteredCountries] = useState([]);
+
+  useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
-    .then(res =>{
-      return res.json();
-    })
-    .then(data =>{
-      const countryNames=data.map(country => country.name.common)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
 
-      const sortedCountryNames=countryNames.sort((a,b) => a.localeCompare(b))
-      setCountries(sortedCountryNames);
-    })
-    .catch(err =>{
-      console.error("Error fetching countries:", err);
-    });
-  },[]);
+        const sortedCountries = data.sort((a, b) =>
+          a.name.common.localeCompare(b.name.common)
+        );
+        setCountries(sortedCountries);
+      
+        const regionNames = data.reduce((acc, curr) => {
+          const region = curr.region;
+          if (!acc.includes(region)) {
+            acc.push(region);
+          }
+          return acc;
+        }, []);
   
+        const sortedRegionNames = regionNames.sort((a, b) =>
+          a.localeCompare(b)
+        );
+        setRegions(sortedRegionNames);
+
+      })
+      .catch((err) => {
+        console.error("Error fetching countries:", err);
+      });
+  }, []);
+
+
+  const handleInputChange=(e) =>{
+    const inputValue=e.target.value.toLowerCase();
+    setInputValue(inputValue);
+    const filtered=countries.filter((country) => 
+    country.name.common.toLowerCase().includes(inputValue)
+    );
+    setFilteredCountries(filtered);
+  }
+
+  const handleKeyPress=(e)=>{
+    const inputValue=e.target.value.toLowerCase();
+    if(e.key === 'Enter'){
+      const exactMatch = countries.filter((country) =>
+       country.name.common.toLowerCase()=== inputValue
+      );
+      setFilteredCountries(exactMatch);
+    }
+  }
+
   return (
     <div className={darkMode ? "search dark-mode" : "search"}>
-      <div className={darkMode ? "search-container dark-mode" : "search-container"}>
+      <div
+        className={darkMode ? "search-container dark-mode" : "search-container"}
+      >
         <ion-icon name="search-outline" className="search-icon"></ion-icon>
         <input
           type="text"
           placeholder="Search for a country..."
           className={darkMode ? "search-input dark-mode" : "search-input"}
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyPress}
         />
       </div>
-      <div className={darkMode? "filter filter-dark":"filter"}>
-        <select id="filter-select" 
-        className={darkMode? "filter-select filter-select-dark":"filter-select"} 
-        values={selectedCountry} 
-        onChange={(e) => setSelectedCountry(e.target.value)}>
-          <option value="">Filter by Region</option>
-          {countries.map((country,index) =>{
-            return <option key={index} value={country}>{country}</option>
+      <div className={darkMode ? "filter filter-dark" : "filter"}>
+        <select
+          id="filter-select"
+          className={
+            darkMode ? "filter-select filter-select-dark" : "filter-select"
+          }
+          values={selectedRegion}
+          onChange={(e) => setSelectedRegion(e.target.value)}
+        >
+          <option value="" disabled hidden selected>Filter by Region</option>
+          {regions.map((country, index) => {
+            return (
+              <option key={index} value={country}>
+                {country}
+              </option>
+            );
           })}
         </select>
       </div>
+      <Countries countries={inputValue ? filteredCountries : countries} 
+      selectedRegion={selectedRegion}
+      darkMode={darkMode} />
     </div>
   );
 }

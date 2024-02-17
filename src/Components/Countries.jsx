@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-function Countries({darkMode}) {
-  const [countries, setCountries] = useState([]);
-
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((res) => res.json())
-      .then((data) => {
-        const sortedCountries = data.sort((a, b) =>
-          a.name.common.localeCompare(b.name.common)
-        );
-        setCountries(sortedCountries);
-      })
-      .catch((err) => {
-        console.error("Error fetching countries:", err);
-      });
-  }, []);
+function Countries({countries,selectedRegion,darkMode}) {
+  const filteredCountries = selectedRegion
+  ? countries.filter(country => country.region === selectedRegion)
+  : countries;
 
   return (
     <div>
-      {countries.map((country) => (
+      {filteredCountries.map((country) => (
         <div key={country.cca3} className={darkMode ? "country country-dark" : "country"}>
           <img
             src={country.flags.svg}

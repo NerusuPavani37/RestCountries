@@ -61,6 +61,9 @@ header ion-icon {
   font-size: large;
   width: 80%;
 }
+.search-input:focus,.filter-select:focus{
+  outline: none;
+}
 
 .search ion-icon {
   font-size: 2rem;
@@ -106,8 +109,7 @@ header ion-icon {
 
 
 .country-details {
-  text-align: center;
-  margin-top: 10px;
+  padding-left: 2rem;
 }
 
 /* dark mode */
