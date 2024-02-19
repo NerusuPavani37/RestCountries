@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTheme } from './ThemeContext';
 
-function Header({ darkMode, toggleDarkMode }) {
+function Header() {
+  const {darkMode, toggleDarkMode}=useTheme();
   return (
     <>
       <header className={darkMode ? "header dark-mode" : "header"}>

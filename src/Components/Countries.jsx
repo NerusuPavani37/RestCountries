@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useTheme } from "./ThemeContext";
 
-function Countries({countries,selectedRegion,darkMode}) {
+function Countries({countries,selectedRegion}) {
+  const {darkMode}=useTheme();
   const filteredCountries = selectedRegion
   ? countries.filter(country => country.region === selectedRegion)
   : countries;

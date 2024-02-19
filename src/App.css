@@ -16,6 +16,10 @@ body {
   background-color: var(--Very-Light-Gray);
 }
 
+body.dark-mode{
+  background-color: var(--Very-Dark-Blue);
+}
+
 header {
   display: flex;
   justify-content: space-between;

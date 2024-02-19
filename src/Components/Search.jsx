@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Countries from "./Countries"
+import { useTheme } from "./ThemeContext";
 
-function Search({ darkMode }) {
+function Search() {
+  const {darkMode} =useTheme();
+
   const [selectedRegion, setSelectedRegion] = useState("");
   const [regions, setRegions] = useState([]);
 
@@ -97,8 +100,7 @@ function Search({ darkMode }) {
         </select>
       </div>
       <Countries countries={inputValue ? filteredCountries : countries} 
-      selectedRegion={selectedRegion}
-      darkMode={darkMode} />
+      selectedRegion={selectedRegion} />
     </div>
   );
 }
