@@ -16,9 +16,7 @@ body {
   background-color: var(--Very-Light-Gray);
 }
 
-body.dark-mode{
-  background-color: var(--Very-Dark-Blue);
-}
+
 
 header {
   display: flex;
@@ -117,7 +115,8 @@ header ion-icon {
 }
 
 /* dark mode */
-.app.dark-mode{ 
+
+body.dark-mode{
   background-color: var(--Very-Dark-Blue);
 }
 
