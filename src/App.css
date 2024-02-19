@@ -16,8 +16,6 @@ body {
   background-color: var(--Very-Light-Gray);
 }
 
-
-
 header {
   display: flex;
   justify-content: space-between;
@@ -47,6 +45,7 @@ header ion-icon {
   display: flex;
   flex-direction: column;
   padding: 2rem 1rem;
+  height: 9rem;
 }
 .search-container {
   display: flex;
@@ -63,7 +62,8 @@ header ion-icon {
   font-size: large;
   width: 80%;
 }
-.search-input:focus,.filter-select:focus{
+.search-input:focus,.filter-select:focus,.filter-sunregion:focus,
+.sort-container:focus{
   outline: none;
 }
 
@@ -73,7 +73,7 @@ header ion-icon {
   padding: 0 3rem;
 }
 
-.filter{
+.filter,.subregion-filter,.sort{
   margin-top: 3rem;
   width: 70%;
   background-color: var(--White);
@@ -85,7 +85,7 @@ header ion-icon {
   position: relative;
 }
 
-.filter-select{
+.filter-select,.filter-sunregion,.sort-container{
   padding: 1rem;
   border: none;
   background-color: var(--White);
@@ -93,10 +93,15 @@ header ion-icon {
   width:max-content;
 }
 
+.countries{
+ margin: 3rem;
+ display: flex;
+ flex-direction: column;
+}
 .country {
   display: flex;
   flex-direction: column;
-  margin: 3rem;
+  margin-bottom: 3rem;
   background-color: var(--White);
   border:1px solid #eee;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);

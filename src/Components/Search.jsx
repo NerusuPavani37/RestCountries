@@ -1,18 +1,39 @@
 import React, { useState, useEffect } from "react";
 import Countries from "./Countries"
 import { useTheme } from "./ThemeContext";
+import SubregionFilter from "./SubregionFilter";
+
 
 function Search() {
   const {darkMode} =useTheme();
 
   const [selectedRegion, setSelectedRegion] = useState("");
+  const [selectedSubregion, setSelectedSubregion] = useState("");
   const [regions, setRegions] = useState([]);
-
 
   const [inputValue, setInputValue]=useState("");
   const [countries,setCountries]=useState([]);
 
   const [filteredCountries, setFilteredCountries] = useState([]);
+
+  const [selectedOptions, setSelectedOptions] = useState("");
+  const handleSorting = (e) => {
+    const option = e.target.value;
+    setSelectedOptions(option);
+    const sortedCountries = [...countries];
+  
+    if (option === 'population_asc') {
+      sortedCountries.sort((a, b) => a.population - b.population);
+    } else if (option === 'population_desc') {
+      sortedCountries.sort((a, b) => b.population - a.population);
+    } else if (option === 'area_asc') {
+      sortedCountries.sort((a, b) => a.area - b.area);
+    } else if (option === 'area_desc') {
+      sortedCountries.sort((a, b) => b.area - a.area);
+    }
+    setCountries(sortedCountries);
+  };
+  
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -65,7 +86,12 @@ function Search() {
     }
   }
 
+  const handleSubregionChange = (subregion) => {
+    setSelectedSubregion(subregion);
+  };
+
   return (
+    <div>
     <div className={darkMode ? "search dark-mode" : "search"}>
       <div
         className={darkMode ? "search-container dark-mode" : "search-container"}
@@ -98,9 +124,33 @@ function Search() {
             );
           })}
         </select>
+      </div>  
       </div>
+      <div className={darkMode ? "sort dark-mode" : "sort"}>
+      <select
+        id="sortDropdown"
+        className={darkMode ? "sort-container dark-mode" : "sort-container"}
+        value={selectedOptions}
+        onChange={handleSorting}
+      >
+        <option value="" disabled hidden selected>
+          Sort
+        </option>
+
+        <option value="population_asc">Population Low to High</option>
+        <option value="population_desc">Population High to Low</option>
+        <option value="area_asc">Area Low to High</option>
+        <option value="area_desc">Area High to Low</option>
+      </select>
+    </div>
+      <SubregionFilter countries={countries} 
+      selectedRegion={selectedRegion} 
+      onSubregionChange={handleSubregionChange}
+      />
       <Countries countries={inputValue ? filteredCountries : countries} 
-      selectedRegion={selectedRegion} />
+      selectedRegion={selectedRegion} 
+      selectedSubregion={selectedSubregion}
+      />
     </div>
   );
 }

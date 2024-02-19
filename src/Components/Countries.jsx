@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "./ThemeContext";
 
-function Countries({countries,selectedRegion}) {
+function Countries({countries,selectedRegion, selectedSubregion}) {
   const {darkMode}=useTheme();
-  const filteredCountries = selectedRegion
-  ? countries.filter(country => country.region === selectedRegion)
-  : countries;
+  const filteredCountries = countries.filter((country) => {
+    if (selectedRegion && selectedSubregion) {
+      return country.region === selectedRegion && country.subregion === selectedSubregion;
+    } else if (selectedRegion) {
+      return country.region === selectedRegion;
+    } else {
+      return true; 
+    }
+  });
 
   return (
-    <div>
+    <div className="countries">
       {filteredCountries.map((country) => (
         <div key={country.cca3} className={darkMode ? "country country-dark" : "country"}>
           <img
@@ -20,6 +26,7 @@ function Countries({countries,selectedRegion}) {
             <h2>{country.name.common}</h2>
             <p>Population: {country.population}</p>
             <p>Region: {country.region}</p>
+            <p>Subregion: {country.subregion}</p>
             <p>Capital: {country.capital}</p>
           </div>
         </div>
