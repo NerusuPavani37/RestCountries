@@ -106,6 +106,8 @@ function Search() {
           onKeyDown={handleKeyPress}
         />
       </div>
+     
+      </div>
       <div className={darkMode ? "filter filter-dark" : "filter"}>
         <select
           id="filter-select"
@@ -125,7 +127,6 @@ function Search() {
           })}
         </select>
       </div>  
-      </div>
       <div className={darkMode ? "sort dark-mode" : "sort"}>
       <select
         id="sortDropdown"

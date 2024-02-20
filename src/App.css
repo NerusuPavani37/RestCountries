@@ -54,7 +54,6 @@ header ion-icon {
   background-color: var(--White);
   border:1px solid #eee;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  
 }
 
 .search-input {
@@ -62,7 +61,7 @@ header ion-icon {
   font-size: large;
   width: 80%;
 }
-.search-input:focus,.filter-select:focus,.filter-sunregion:focus,
+.search-input:focus,.filter-select:focus,.filter-subregion:focus,
 .sort-container:focus{
   outline: none;
 }
@@ -74,7 +73,7 @@ header ion-icon {
 }
 
 .filter,.subregion-filter,.sort{
-  margin-top: 3rem;
+  margin-left: 3rem;
   width: 70%;
   background-color: var(--White);
   border:1px solid #eee;
@@ -85,7 +84,7 @@ header ion-icon {
   position: relative;
 }
 
-.filter-select,.filter-sunregion,.sort-container{
+.filter-select,.filter-subregion,.sort-container{
   padding: 1rem;
   border: none;
   background-color: var(--White);
@@ -133,13 +132,16 @@ body.dark-mode{
 
 .search-container.dark-mode,
 .country.country-dark,
-.filter.filter-dark{
+.filter.filter-dark,.sort.dark-mode,
+.subregion-filter.dark-mode{
   background-color: var(--Dark-Blue);
   color: #eee;
   border: 1px solid #333;
 }
 .search-input.dark-mode,
-.filter-select.filter-select-dark{ 
+.filter-select.filter-select-dark,
+.sort-container.dark-mode,
+.filter-subregion.dark-mode{ 
   background-color: var(--Dark-Blue);
   color: #eee;
 }

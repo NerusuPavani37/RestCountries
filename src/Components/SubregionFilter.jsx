@@ -24,15 +24,15 @@ function SubregionFilter({ countries, selectedRegion,onSubregionChange }) {
   return (
     <div
       className={
-        darkMode ? "subregion-filter subregion-filter-dark" : "subregion-filter"
+        darkMode ? "subregion-filter dark-mode" : "subregion-filter"
       }
     >
       <select
         id="filter-subregion"
         className={
           darkMode
-            ? "filter-subregion filter-subregion-dark"
-            : "filter-sunregion"
+            ? "filter-subregion dark-mode"
+            : "filter-subregion"
         }
         value={selectedSubregion}
         onChange={handleSubregionChange}
@@ -40,10 +40,10 @@ function SubregionFilter({ countries, selectedRegion,onSubregionChange }) {
         <option value="" disabled hidden selected>
           Filter by Sub-Region
         </option>
-        {subRegions.map((country, index) => {
+        {subRegions.map((subregion, index) => {
           return (
-            <option key={index} value={country}>
-              {country}
+            <option key={index} value={subregion}>
+              {subregion}
             </option>
           );
         })}
